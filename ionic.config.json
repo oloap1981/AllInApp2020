@@ -1,0 +1,7 @@
+{
+  "name": "AllInApp2020",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

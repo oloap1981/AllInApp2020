@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar hideBackButton>
+    <ion-buttons left>
+      <button (click)="back()" ion-button icon-left clear small>
+        <ion-icon name="apps"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <div class="icon-section">
+        <i [ngClass]="icon" [ngStyle]="{'color' : color }"></i>
+      </div>
+    </ion-buttons>
+    <ion-title>
+      <div class="text-default">PROFILO</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="userData text-center">
+    <div class="user-bigger mx-auto  mb-3 addBook ">
+      <img (click)="presentActionSheet()" src={{user.dipendente.url_avatar}}>
+    </div>
+    <h5 class="name">{{user.dipendente.nome}} {{user.dipendente.cognome}}</h5>
+    <p class="role">{{user.dipendente.ruolo_aziendale}}</p>
+    <table class="roleInfo mx-auto">
+      <tr>
+        <td class="text-left">
+          N° interno
+        </td>
+        <td class="text-right">
+          {{user.dipendente.matricola}}
+        </td>
+      </tr>
+      <tr>
+        <td class="text-left">
+          Ruolo aziendale
+        </td>
+        <td class="text-right">
+          {{user.dipendente.ruolo_aziendale}}
+        </td>
+      </tr>
+      <tr>
+        <td class="text-left">
+          Mansione
+        </td>
+        <td class="text-right">
+          {{user.dipendente.ruolo_aziendale}}
+        </td>
+      </tr>
+    </table>
+    <table class="contacts mt-5 mb-5 mx-auto">
+      <tr>
+        <td class="text-left">
+          <ion-icon name="call"></ion-icon>
+        </td>
+        <td class="text-right">
+          <span>{{user.dipendente.telefono}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-left">
+          <ion-icon name="mail"></ion-icon>
+
+        </td>
+        <td class="text-right">
+          {{user.dipendente.email}}
+        </td>
+      </tr>
+    </table>
+    <button href="#" [ngStyle]="{'backgroundColor' : color }" class="btn btn-custom">DIPENDENZA GERARCHICA</button>
+  </div>
+</ion-content>

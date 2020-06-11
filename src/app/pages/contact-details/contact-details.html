@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar hideBackButton>
+    <ion-buttons left>
+      <button (click)="back()" ion-button icon-left clear small>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <div class="icon-section">
+        <i [ngClass]="icon" [ngStyle]="{'color' : color }"></i>
+      </div>
+    </ion-buttons>
+    <ion-title>
+      <div class="text-default" [ngStyle]="{'color' : color }">RUBRICA</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="userData  text-center">
+    <div class="user-bigger mx-auto  mb-3 addBook ">
+      <img src={{contact.url_avatar}}>
+    </div>
+    <h5 class="name">{{contact.nome}} {{contact.cognome}}</h5>
+    <p class="role" [ngStyle]="{'color' : color }">{{contact.ruolo_aziendale}}</p>
+
+    <table class="roleInfo mx-auto">
+      <tr>
+        <td class="text-left">
+          N° interno
+        </td>
+        <td class="text-right">
+          {{contact.matricola}}
+        </td>
+      </tr>
+      <tr>
+        <td class="text-left">
+          Ruolo aziendale
+        </td>
+        <td class="text-right">
+          {{contact.ruolo_aziendale}}
+        </td>
+      </tr>
+      <tr>
+        <td class="text-left">
+          Mansione
+        </td>
+        <td class="text-right">
+          {{contact.ruolo_aziendale}}
+        </td>
+      </tr>
+    </table>
+    <table class="contacts mt-5 mb-5 mx-auto">
+      <tr (click)="presentConfirmCall()">
+        <td class="text-left">
+          <ion-icon name="call"></ion-icon>
+        </td>
+        <td class="text-right">
+          <span>{{contact.telefono}}</span>
+        </td>
+      </tr>
+      <tr (click)="presentConfirmEmail()">
+        <td class="text-left">
+          <ion-icon name="mail"></ion-icon>
+
+        </td>
+        <td class="text-right">
+          {{contact.email}}
+        </td>
+      </tr>
+    </table>
+    <button href="#" [ngStyle]="{'backgroundColor' : color }" class="btn btn-custom">DIPENDENZA GERARCHICA</button>
+  </div>
+</ion-content>
