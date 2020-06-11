@@ -1,5 +1,3 @@
-import { HomeMessModule } from '../home-mess/home-mess.module';
-import { HomeComModule } from '../home-com/home-com.module';
 import { ComunicazioniCardPage } from './comunicazioni-card';
 
 
@@ -7,10 +5,11 @@ import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { ComunicazioniCardPageRoutingModule } from './comunicazioni-card-routing.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
 declarations: [ComunicazioniCardPage],
-    imports: [IonicModule, HomeComModule, HomeMessModule, CommonModule, ComunicazioniCardPageRoutingModule],
+    imports: [IonicModule, CommonModule, ComunicazioniCardPageRoutingModule, ComponentsModule],
 exports: [ComunicazioniCardPage]
 })
 export class ComunicazioniCardModule {}

@@ -13,15 +13,18 @@ import { Comunicazione } from '../../models/comunicazione/comunicazione.namespac
 import { Documentale } from '../../models/documentale/documentale.namespace';
 import { Module } from '../../models/modules/modules.namespace';
 import { Bacheca } from '../../models/bacheca/bacheca.namespace';
+import { ConstantsService } from './constants.service';
 
 
 // SERVICE NON UTILIZZATO
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class HttpService {
 
-    constructor(private http: HttpClient, private store: StoreService) {}
+    
+
+    constructor(private http: HttpClient, 
+        private store: StoreService,
+        private constants: ConstantsService) {}
 
     public getToken(url: string): Observable<Login.Token> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -37,7 +40,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_elenco_news/'
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_news/'
                     + token.token_value + '/' + from + '/' + to + '/' + lette;
                     console.log(url);
                     this.http.get<News.NewsList>(url).subscribe(
@@ -56,7 +59,7 @@ export class HttpService {
     }
 
     // public getNewsList(token : string, from : string, to : string , lette : string) : Observable<News.NewsList>{
-    //     let url = 'http://allinappws.mesys.it/services/get_elenco_news/'+ token +'/'+from+'/'+to +'/'+ lette;
+    //     let url = this.constants.SERVER_ADDRESS + '/services/get_elenco_news/'+ token +'/'+from+'/'+to +'/'+ lette;
     //     console.log(url);
     //     return this.http.get<News.NewsList>(url);
     // }
@@ -86,7 +89,7 @@ export class HttpService {
     }
 
 //    public setReadNews (token : string , key: number): Observable<News.NewsResult>{
-//         let url = 'http://allinappws.mesys.it/services/set_read_news/'+token +'/'+key+'/';
+//         let url = this.constants.SERVER_ADDRESS + '/services/set_read_news/'+token +'/'+key+'/';
 //         console.log(url);
 //         return this.http.get<News.NewsResult>(url);
 //     }
@@ -95,7 +98,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/set_read_news/' + token.token_value + '/' + key + '/';
+                    const url = this.constants.SERVER_ADDRESS + '/services/set_read_news/' + token.token_value + '/' + key + '/';
                     console.log(url);
                     const s = this.http.get<News.NewsResult>(url).subscribe(
                         (r: News.NewsResult) => {
@@ -115,7 +118,7 @@ export class HttpService {
     }
 
 //    public getMessaggeList(token : string, from : string, to : string , tipo : string):Observable<Messaggi.MessaggiList>{
-//         let url = 'http://allinappws.mesys.it/services/get_elenco_messaggi/'+ token +'/'+from+'/'+to +'/'+ tipo;
+//         let url = this.constants.SERVER_ADDRESS + '/services/get_elenco_messaggi/'+ token +'/'+from+'/'+to +'/'+ tipo;
 //         console.log(url);
 //         return this.http.get<Messaggi.MessaggiList>(url);
 //     }
@@ -124,7 +127,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_elenco_messaggi/' + token.token_value + '/' + from + '/' + to + '/' + tipo;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_messaggi/' + token.token_value + '/' + from + '/' + to + '/' + tipo;
                     console.log(url);
                     const s = this.http.get<Messaggi.MessaggiList>(url).subscribe(
                         (r: Messaggi.MessaggiList) => {
@@ -144,7 +147,7 @@ export class HttpService {
     }
 
     // public getMessagge(token : string, key : number):Observable<Messaggi.BustaMessaggio>{
-    //     let url = 'http://allinappws.mesys.it/services/get_messaggio/'+ token +'/'+key;
+    //     let url = this.constants.SERVER_ADDRESS + '/services/get_messaggio/'+ token +'/'+key;
     //     console.log(url);
     //     return this.http.get<Messaggi.BustaMessaggio>(url);
     // }
@@ -153,7 +156,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_messaggio/' + token.token_value + '/' + key;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_messaggio/' + token.token_value + '/' + key;
                     console.log(url);
                     const s = this.http.get<Messaggi.BustaMessaggio>(url).subscribe(
                         (r: Messaggi.BustaMessaggio) => {
@@ -172,7 +175,7 @@ export class HttpService {
     }
 
     // public setStarMessage (token : string , key: number, stato: string): Observable<Messaggi.MessaggioResult>{
-    //     let url = 'http://allinappws.mesys.it/services/set_star_message/'+ token +'/'+key +'/'+stato;
+    //     let url = this.constants.SERVER_ADDRESS + '/services/set_star_message/'+ token +'/'+key +'/'+stato;
     //     console.log(url);
     //     return this.http.get<Messaggi.MessaggioResult>(url);
     // }
@@ -181,7 +184,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/set_star_message/' + token.token_value + '/' + key + '/' + stato;
+                    const url = this.constants.SERVER_ADDRESS + '/services/set_star_message/' + token.token_value + '/' + key + '/' + stato;
                     console.log(url);
                     const s = this.http.get<Messaggi.MessaggioResult>(url).subscribe(
                         (r: Messaggi.MessaggioResult) => {
@@ -200,7 +203,7 @@ export class HttpService {
     }
 
     // public setDeleteMessage (token : string , key: number): Observable<Messaggi.MessaggioResult>{
-    //     let url = 'http://allinappws.mesys.it/services/set_deleted_message/'+ token +'/'+key;
+    //     let url = this.constants.SERVER_ADDRESS + '/services/set_deleted_message/'+ token +'/'+key;
     //     console.log(url);
     //     return this.http.get<Messaggi.MessaggioResult>(url);
     // }
@@ -209,7 +212,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/set_deleted_message/' + token.token_value + '/' + key;
+                    const url = this.constants.SERVER_ADDRESS + '/services/set_deleted_message/' + token.token_value + '/' + key;
                     console.log(url);
                     const s = this.http.get<Messaggi.MessaggioResult>(url).subscribe(
                         (r: Messaggi.MessaggioResult) => {
@@ -228,7 +231,7 @@ export class HttpService {
     }
 
     // public deleteMessage (mess): Observable<Messaggi.MessaggioResult>{
-    //     let url = 'http://allinappws.mesys.it/services/del_message/';
+    //     let url = this.constants.SERVER_ADDRESS + '/services/del_message/';
     //     console.log(url);
     //     return this.http.post<Messaggi.MessaggioResult>(url, mess);
     // }
@@ -237,7 +240,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/del_message/';
+                    const url = this.constants.SERVER_ADDRESS + '/services/del_message/';
                     console.log(url);
                     const s = this.http.post<Messaggi.MessaggioResult>(url, mess).subscribe(
                         (r: Messaggi.MessaggioResult) => {
@@ -257,7 +260,7 @@ export class HttpService {
 
 
     // public sendMessage(token : string, mess: Messaggi.BustaMessaggio){
-    //     let url = 'http://allinappws.mesys.it/services/put_message';
+    //     let url = this.constants.SERVER_ADDRESS + '/services/put_message';
     //     console.log(url);
     //     console.log (mess);
     //     return this.http.post<Messaggi.MessaggioResult>(url, mess);
@@ -267,7 +270,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/put_message';
+                    const url = this.constants.SERVER_ADDRESS + '/services/put_message';
                     console.log(url);
                     const s = this.http.post<Messaggi.MessaggioResult>(url, mess).subscribe(
                         (r: Messaggi.MessaggioResult) => {
@@ -286,7 +289,7 @@ export class HttpService {
     }
 
     // public getComunicazioniElenco (token : string , from : number, to: number, lette : string, tipo : string){
-    //     let url = 'http://allinappws.mesys.it/services/get_elenco_comunicazioni/'+ token +'/' + from +
+    //     let url = this.constants.SERVER_ADDRESS + '/services/get_elenco_comunicazioni/'+ token +'/' + from +
     //         '/' + to +'/' + lette + '/'+ tipo + '/';
     //     console.log(url);
     //     return this.http.get<Comunicazione.ComunicazioniElenco>(url);
@@ -296,7 +299,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_elenco_comunicazioni/' + token.token_value + '/' + from +
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_comunicazioni/' + token.token_value + '/' + from +
                         '/' + to + '/' + lette + '/' + tipo + '/';
                     console.log(url);
                     const s = this.http.get<Comunicazione.ComunicazioniElenco>(url).subscribe(
@@ -316,7 +319,7 @@ export class HttpService {
     }
 
     // public getComunicazione (token : string , key: number ){
-    //     let url = 'http://allinappws.mesys.it/services/get_public_comunicazione/'
+    //     let url = this.constants.SERVER_ADDRESS + '/services/get_public_comunicazione/'
     //     + token + '/' + key + '/';
     //     console.log(url);
     //     return this.http.get<Comunicazione.ComunicazioneResult>(url);
@@ -325,7 +328,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_public_comunicazione/'
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_public_comunicazione/'
                         + token.token_value + '/' + key + '/';
                     console.log(url);
                     const s = this.http.get<Comunicazione.ComunicazioneResult>(url).subscribe(
@@ -345,7 +348,7 @@ export class HttpService {
     }
 
     // public setReadComunicazione (token : string , key : number){
-    //     let url = 'http://allinappws.mesys.it/services/set_read_comunicazione/'
+    //     let url = this.constants.SERVER_ADDRESS + '/services/set_read_comunicazione/'
     //         + token + '/' +  key + '/';
     //     console.log(url);
     //     return this.http.get<Comunicazione.Result>(url);
@@ -355,7 +358,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/set_read_comunicazione/'
+                    const url = this.constants.SERVER_ADDRESS + '/services/set_read_comunicazione/'
                         + token.token_value + '/' +  key + '/';
                     console.log(url);
                     const s = this.http.get<Comunicazione.Result>(url).subscribe(
@@ -375,7 +378,7 @@ export class HttpService {
     }
 
     // public setDeletedComunicazione (token: string , key: number){
-    //     let url = 'http://allinappws.mesys.it/services/set_deleted_comunicazione/' + token + '/' + key +'/';
+    //     let url = this.constants.SERVER_ADDRESS + '/services/set_deleted_comunicazione/' + token + '/' + key +'/';
     //     console.log(url);
     //     return this.http.get<Comunicazione.Result>(url);
     // }
@@ -384,7 +387,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/set_deleted_comunicazione/' + token.token_value + '/' + key + '/';
+                    const url = this.constants.SERVER_ADDRESS + '/services/set_deleted_comunicazione/' + token.token_value + '/' + key + '/';
                     console.log(url);
                     const s = this.http.get<Comunicazione.Result>(url).subscribe(
                         (r: Comunicazione.Result) => {
@@ -403,7 +406,7 @@ export class HttpService {
     }
 
     // public getElencoTipoDocumenti(token : string){
-    //     let url = 'http://allinappws.mesys.it/services/get_elenco_tipo_documenti/' + token;
+    //     let url = this.constants.SERVER_ADDRESS + '/services/get_elenco_tipo_documenti/' + token;
     //     console.log(url);
     //     return this.http.get<Documentale.tipiElenco>(url);
     // }
@@ -412,7 +415,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_elenco_tipo_documenti/' + token.token_value;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_tipo_documenti/' + token.token_value;
                     console.log(url);
                     const s = this.http.get<Documentale.tipiElenco>(url).subscribe(
                         (r: Documentale.tipiElenco) => {
@@ -431,7 +434,7 @@ export class HttpService {
     }
 
     // public getCategorieDocumenti(token: string, categoria : number){
-    //     let url = 'http://allinappws.mesys.it/services/get_elenco_categoria_documenti/'+ token+'/'+categoria;
+    //     let url = this.constants.SERVER_ADDRESS + '/services/get_elenco_categoria_documenti/'+ token+'/'+categoria;
     //     console.log(url);
     //     return this.http.get<Documentale.ListaCategorie>(url);
     // }
@@ -440,7 +443,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_elenco_categoria_documenti/' + token.token_value + '/' + categoria;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_categoria_documenti/' + token.token_value + '/' + categoria;
                     console.log(url);
                     const s = this.http.get<Documentale.ListaCategorie>(url).subscribe(
                         (r: Documentale.ListaCategorie) => {
@@ -459,7 +462,7 @@ export class HttpService {
     }
 
     // public getElencoDocumenti (token : string, from : number, to : number, tipo : number, categoria : number){
-    //     let url = 'http://allinappws.mesys.it/services/get_elenco_documenti/'+token+'/'+from +'/'+ to+'/'+
+    //     let url = this.constants.SERVER_ADDRESS + '/services/get_elenco_documenti/'+token+'/'+from +'/'+ to+'/'+
     //      tipo+ '/'+ categoria;
     //      console.log(url);
     //      return this.http.get<Documentale.ListaDocumenti>(url);
@@ -469,7 +472,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_elenco_documenti/' + token.token_value + '/' + from + '/' + to + '/' +
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_documenti/' + token.token_value + '/' + from + '/' + to + '/' +
                     tipo + '/' + categoria;
                     console.log(url);
                     const s = this.http.get<Documentale.ListaDocumenti>(url).subscribe(
@@ -489,7 +492,7 @@ export class HttpService {
     }
 
     // public getDocumento (token : string , key : number){
-    //     let url = 'http://allinappws.mesys.it/services/get_public_documento/' + token + '/'+ key + '/';
+    //     let url = this.constants.SERVER_ADDRESS + '/services/get_public_documento/' + token + '/'+ key + '/';
     //     console.log (url);
     //     return this.http.get<Documentale.DocumentoResult>(url);
     // }
@@ -498,7 +501,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_public_documento/' + token.token_value + '/' + key + '/';
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_public_documento/' + token.token_value + '/' + key + '/';
                     console.log(url);
                     const s = this.http.get<Documentale.DocumentoResult>(url).subscribe(
                         (r: Documentale.DocumentoResult) => {
@@ -520,7 +523,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_modules/' + token.token_value;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_modules/' + token.token_value;
                     console.log(url);
                     const s = this.http.get<Module.ModuleResult>(url).subscribe(
                         (r: Module.ModuleResult) => {
@@ -543,7 +546,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_elenco_annunci/' + token.token_value + '/' + from + '/' + to + '/' + preferiti;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_annunci/' + token.token_value + '/' + from + '/' + to + '/' + preferiti;
                     console.log(url);
                     const s = this.http.get<Bacheca.BachecaList>(url).subscribe(
                         (r: Bacheca.BachecaList) => {
@@ -566,7 +569,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_miei_annunci/' + token.token_value + '/' + from + '/' + to ;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_miei_annunci/' + token.token_value + '/' + from + '/' + to ;
                     console.log(url);
                     const s = this.http.get<Bacheca.BachecaList>(url).subscribe(
                         (r: Bacheca.BachecaList) => {
@@ -589,7 +592,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_public_annunci/' + token.token_value + '/' + key ;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_public_annunci/' + token.token_value + '/' + key ;
                     console.log(url);
                     const s = this.http.get<Bacheca.BachecaSingleResult>(url).subscribe(
                         (r: Bacheca.BachecaSingleResult) => {
@@ -612,7 +615,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_lista_categoria_annuncio/' + token.token_value  ;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_lista_categoria_annuncio/' + token.token_value  ;
                     console.log(url);
                     const s = this.http.get<Bacheca.BachecaCategoriaResult>(url).subscribe(
                         (r: Bacheca.BachecaCategoriaResult) => {
@@ -635,7 +638,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/set_stato_annuncio/' + token.token_value + '/' + key + '/' + stato ;
+                    const url = this.constants.SERVER_ADDRESS + '/services/set_stato_annuncio/' + token.token_value + '/' + key + '/' + stato ;
                     console.log(url);
                     const s = this.http.get<Bacheca.BachecaResult>(url).subscribe(
                         (r: Bacheca.BachecaResult) => {
@@ -658,7 +661,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/set_preferred_annuncio/' + token.token_value + '/' + key + '/' + stato;
+                    const url = this.constants.SERVER_ADDRESS + '/services/set_preferred_annuncio/' + token.token_value + '/' + key + '/' + stato;
                     console.log(url);
                     const s = this.http.get<Bacheca.BachecaResult>(url).subscribe(
                         (r: Bacheca.BachecaResult) => {
@@ -683,7 +686,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/set_deleted_annuncio/' + token.token_value + '/' + key;
+                    const url = this.constants.SERVER_ADDRESS + '/services/set_deleted_annuncio/' + token.token_value + '/' + key;
                     console.log(url);
                     const s = this.http.get<Bacheca.BachecaResult>(url).subscribe(
                         (r: Bacheca.BachecaResult) => {
@@ -706,7 +709,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/put_annuncio';
+                    const url = this.constants.SERVER_ADDRESS + '/services/put_annuncio';
                     console.log(url);
                     const s = this.http.post<Bacheca.BachecaResult>(url, mess).subscribe(
                         (r: Bacheca.BachecaResult) => {
@@ -729,7 +732,7 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/del_annuncio';
+                    const url = this.constants.SERVER_ADDRESS + '/services/del_annuncio';
                     console.log(url);
                     const s = this.http.post<Bacheca.BachecaResult>(url, mess).subscribe(
                         (r: Bacheca.BachecaResult) => {
@@ -759,7 +762,7 @@ export class HttpService {
                         tipologia,
                         immagine
                       };
-                    const url = 'http://allinappws.mesys.it/services/img_annuncio';
+                    const url = this.constants.SERVER_ADDRESS + '/services/img_annuncio';
                     console.log(url);
                     const s = this.http.post<Bacheca.BachecaResult>(url, o).subscribe(
                         (r: Bacheca.BachecaResult) => {

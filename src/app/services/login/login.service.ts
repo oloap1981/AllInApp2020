@@ -6,20 +6,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 // import { HttpService } from '../shared/http.service';
 import { Login } from '../../models/login/login.namespace';
+import { ConstantsService } from '../shared/constants.service';
 
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class LoginService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+        private constants: ConstantsService) {
 
     }
 
     public login(username: string, password: string): Observable<Login.Token> {
-        const url = 'http://allinappws.mesys.it/services/token/' + username + '/' + password;
+        const url = this.constants.SERVER_ADDRESS + '/services/token/' + username + '/' + password;
         console.log(url);
         return this.http.get<Login.Token>(url);
     }
@@ -32,7 +32,7 @@ export class LoginService {
                 password_rep: rep,
                 token : token.token_value
             };
-            const url = 'http://allinappws.mesys.it/services/change_password';
+            const url = this.constants.SERVER_ADDRESS + '/services/change_password';
             return this.http.post<Login.Result>(url, op);
     }
 
@@ -44,7 +44,7 @@ export class LoginService {
         };
 
         console.log(op);
-        const url = 'http://allinappws.mesys.it/services/change_avatar';
+        const url = this.constants.SERVER_ADDRESS + '/services/change_avatar';
         return this.http.post<Login.Result>(url, op);
     }
 

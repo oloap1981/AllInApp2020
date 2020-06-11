@@ -17,7 +17,7 @@ import { HomePage } from './pages/home/home';
   styleUrls: ['app.component.scss']
 })
 // tslint:disable-next-line:component-class-suffix
-export class MyApp {
+export class AppComponent {
 
   rootPage: any = HomePage;
 

@@ -28,8 +28,6 @@ const routes: Routes = [
   { path: 'documentale-categorie', loadChildren: () => import('./pages/documentale-categorie/documentale-categorie.module').then(m => m.DocumentaleCategorieModule) },
   { path: 'documentale-details', loadChildren: () => import('./pages/documentale-details/documentale-details.module').then(m => m.DocumentaleDetailsModule) },
   { path: 'documentale-lista', loadChildren: () => import('./pages/documentale-lista/documentale-lista.module').then(m => m.DocumentaleListaModule) },
-  { path: 'home-com', loadChildren: () => import('./pages/home-com/home-com.module').then(m => m.HomeComModule) },
-  { path: 'home-mess', loadChildren: () => import('./pages/home-mess/home-mess.module').then(m => m.HomeMessModule) },
   { path: 'list-object', loadChildren: () => import('./pages/list-object/list-object.module').then(m => m.ListObjectModule) },
   { path: 'messaggi', loadChildren: () => import('./pages/messaggi/messaggi.module').then(m => m.MessaggiModule) },
   { path: 'messaggi-card', loadChildren: () => import('./pages/messaggi-card/messaggi-card.module').then(m => m.MessaggiCardModule) },

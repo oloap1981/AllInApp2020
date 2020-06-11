@@ -8,7 +8,7 @@ import { OnInit, Component, Input } from '@angular/core';
   selector: 'home-mess',
   templateUrl: 'home-mess.html'
 })
-export class HomeMessPage implements OnInit {
+export class HomeMessComponent implements OnInit {
 
   @Input() color: string;
   @Input() icon: string;

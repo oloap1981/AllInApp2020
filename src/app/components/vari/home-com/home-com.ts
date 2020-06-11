@@ -7,7 +7,7 @@ import { OnInit, Component, Input } from '@angular/core';
   selector: 'home-com',
   templateUrl: 'home-com.html'
 })
-export class HomeComPage implements OnInit {
+export class HomeComComponent implements OnInit {
 
   @Input() color: string;
   @Input() date: string;

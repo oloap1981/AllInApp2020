@@ -7,7 +7,6 @@ import { ChatCardModule } from '../chat-card/contact-card.module';
 import { DocumentaleCardModule } from '../documentale-card/documentale-card.module';
 import { ContactCardModule } from '../contact-card/contact-card.module';
 
-import { HomeComModule } from '../home-com/home-com.module';
 import { NgModule } from '@angular/core';
 import { HomePage } from './home';
 import { ComunicazioniCardModule } from '../comunicazioni-card/comunicazioni-card.module';
@@ -18,18 +17,17 @@ import { HomePageRoutingModule } from './home-routing.module';
 @NgModule({
 declarations: [HomePage],
 imports: [
-CommonModule,
-IonicModule,
-HomeComModule,
-ContactCardModule,
-DocumentaleCardModule,
-ChatCardModule,
-MessaggiCardModule,
-NewsCardModule,
-ComunicazioniCardModule,
-CircolariCardModule,
-BachecaCardModule,
-    HomePageRoutingModule
-]
+    CommonModule,
+    IonicModule,
+    ContactCardModule,
+    DocumentaleCardModule,
+    ChatCardModule,
+    MessaggiCardModule,
+    NewsCardModule,
+    ComunicazioniCardModule,
+    CircolariCardModule,
+    BachecaCardModule,
+        HomePageRoutingModule
+    ]
 })
 export class HomeModule {}

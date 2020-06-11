@@ -7,9 +7,7 @@ import { LoginService } from '../login/login.service';
 import { AlertController } from '@ionic/angular';
 // import { MessaggiPage } from '../../pages/messaggi/messaggi';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AlertService {
 
      constructor(

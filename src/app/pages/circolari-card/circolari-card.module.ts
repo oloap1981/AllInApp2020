@@ -1,16 +1,13 @@
-import { HomeMessModule } from '../home-mess/home-mess.module';
 import { CircolariCardPage } from './circolari-card';
-import { HomeComModule } from '../home-com/home-com.module';
-
-
 
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
 declarations: [CircolariCardPage],
-imports: [IonicModule, HomeComModule, HomeMessModule, CommonModule],
+imports: [IonicModule, CommonModule, ComponentsModule],
 exports: [CircolariCardPage]
 })
 export class CircolariCardModule {}

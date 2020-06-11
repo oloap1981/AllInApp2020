@@ -3,9 +3,7 @@ import { Observable } from 'rxjs';
 import { Http } from '../models/shared/http.namespace';
 import { HttpService } from '../services/shared/http.service';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ComunicazioneService  {
 
     constructor(private http: HttpService){

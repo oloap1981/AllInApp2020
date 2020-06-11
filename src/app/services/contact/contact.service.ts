@@ -7,12 +7,11 @@ import { StoreService } from '../store/store.service';
 import { Subject } from 'rxjs';
 import { Injectable, OnInit } from '@angular/core';
 import { Contact } from '../../models/contact/contact.namespace';
+import { ConstantsService } from '../shared/constants.service';
 // import { User } from '../../models/user/user.namespace';
 // import * as Rx from 'rxjs/Rx';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ContactService implements OnInit {
 
     // private token : string;
@@ -30,7 +29,8 @@ export class ContactService implements OnInit {
 
     constructor(
       private http: HttpClient,
-      private store: StoreService ) {
+      private store: StoreService,
+      private constants: ConstantsService) {
         // this.lc = null;
     }
 
@@ -52,7 +52,7 @@ export class ContactService implements OnInit {
     //     this.attivo = attivo;
     //     this.subscription = this.store.userData$.subscribe((val : Login.Token) =>{
     //         this.token = val.token_value;
-    //         let url = 'http://allinappws.mesys.it/services/get_elenco_dipendenti/'+ this.token +'/'+this.attivo;
+    //         let url = this.constants.SERVER_ADDRESS + '/services/get_elenco_dipendenti/'+ this.token +'/'+this.attivo;
     //         this.http.get<Contact.ContactList>(url).subscribe((val)=>{
     //                 this.lc = val;
     //                 this.contactsList.next(this.lc);
@@ -66,7 +66,7 @@ export class ContactService implements OnInit {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
-                    const url = 'http://allinappws.mesys.it/services/get_elenco_dipendenti/' + token.token_value + '/' + attivo;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_dipendenti/' + token.token_value + '/' + attivo;
                     console.log(url);
                     const s = this.http.get<Contact.ContactList>(url).subscribe(
                         (r: Contact.ContactList) => {
@@ -118,7 +118,7 @@ export class ContactService implements OnInit {
         // this.subscriptionFull = this.store.userData$.subscribe((val : Login.Token) =>{
         //     if (key == -1) key = val.token_dipendente_key ;
         //     this.token = val.token_value;
-        //     let url = 'http://allinappws.mesys.it/services/get_scheda_dipendente/'+ this.token +'/'+ key;
+        //     let url = this.constants.SERVER_ADDRESS + '/services/get_scheda_dipendente/'+ this.token +'/'+ key;
         //     console.log(url);
         //     console.log (val);
         //     this.http.get<Contact.ContactDataFull>(url).subscribe((val)=>{
@@ -135,7 +135,7 @@ export class ContactService implements OnInit {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
                     if (key === -1) { key = token.token_dipendente_key ; }
-                    const url = 'http://allinappws.mesys.it/services/get_scheda_dipendente/' + token.token_value + '/' + key;
+                    const url = this.constants.SERVER_ADDRESS + '/services/get_scheda_dipendente/' + token.token_value + '/' + key;
                     console.log(url);
                     const s = this.http.get<Contact.ContactDataFull>(url).subscribe(
                         (r: Contact.ContactDataFull) => {

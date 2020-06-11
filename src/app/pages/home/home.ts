@@ -1,12 +1,12 @@
 // import { BachecaPage } from './../bacheca/bacheca';
 // import { MessaggiPage } from './../messaggi/messaggi';
 // import { DocumentalePage } from './../documentale/documentale';
-import { Module } from './../../models/modules/modules.namespace';
+import { Module } from '../../models/modules/modules.namespace';
 
 // import { CircolariPage } from './../circolari/circolari';
 // import { NewsPage } from './../news/news';
-import { LoginService } from './../../services/login/login.service';
-import { StoreService } from './../../services/store/store.service';
+import { LoginService } from '../../services/login/login.service';
+import { StoreService } from '../../services/store/store.service';
 
 
 // import { HomeElement } from './../../models/home-element/home-element.namespace';
@@ -14,7 +14,7 @@ import { StoreService } from './../../services/store/store.service';
 // import { ContactsPage } from './../contacts/contacts';
 // import { ChatPage } from './../chat/chat';
 // import { MyChatPage } from './../mychat/mychat';
-import { LoginPage } from '../../pages/login/login';
+import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
@@ -56,7 +56,6 @@ export class HomePage extends BaseComponent implements OnInit {
   // @ViewChild(Slides) slides: Slides;
 
   constructor(
-    public navCtrl: NavController,
     private storage: Storage,
     private http: HttpService,
     private alertCtrl: AlertController,

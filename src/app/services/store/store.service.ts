@@ -8,9 +8,7 @@ import { Storage } from '@ionic/storage';
 import { Subject } from 'rxjs';
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class StoreService {
 
     private ud: Login.Token;

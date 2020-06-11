@@ -3,9 +3,7 @@ import { Error} from './../../models/shared/error.namespace';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ErrorService {
 
     constructor(private http: HttpClient) {}
