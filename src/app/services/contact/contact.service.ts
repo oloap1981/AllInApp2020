@@ -5,12 +5,13 @@ import { HttpClient } from '@angular/common/http';
 // import { Observable } from 'rxjs/observable';
 import { StoreService } from '../store/store.service';
 import { Subject } from 'rxjs';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, Directive } from '@angular/core';
 import { Contact } from '../../models/contact/contact.namespace';
 import { ConstantsService } from '../shared/constants.service';
 // import { User } from '../../models/user/user.namespace';
 // import * as Rx from 'rxjs/Rx';
 
+@Directive()
 @Injectable()
 export class ContactService implements OnInit {
 
