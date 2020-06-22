@@ -14,14 +14,18 @@ import { ConstantsService } from '../shared/constants.service';
 export class LoginService {
 
     constructor(private http: HttpClient,
-        private constants: ConstantsService) {
+                private constants: ConstantsService) {
 
     }
 
     public login(username: string, password: string): Observable<Login.Token> {
-        const url = this.constants.SERVER_ADDRESS + '/services/token/' + username + '/' + password;
+        const url = this.constants.SERVER_ADDRESS + '/services/token';
+        const loginRequest = new Login.LoginRequest();
+        loginRequest.user = username;
+        loginRequest.password = password;
+        loginRequest.phoneid = '123456';
         console.log(url);
-        return this.http.get<Login.Token>(url);
+        return this.http.post<Login.Token>(url, loginRequest);
     }
 
     public changePassword(token, pass, newp , rep): Observable<Login.Result>  {

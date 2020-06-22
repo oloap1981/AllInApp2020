@@ -3,9 +3,9 @@ import { AlertController } from '@ionic/angular';
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-    constructor(private alertController: AlertController){}
+    constructor(private alertController: AlertController) {}
 
-    handleError(error: any): void{
+    handleError(error: any): void {
 
       this.presentErrorAlert(error.message);
       throw error;
@@ -13,10 +13,10 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     private async presentErrorAlert(message: string) {
       const alert = await this.alertController.create({
-          header: 'Errore',
-          message: message,
-          buttons: ['CHIUDI']
-        });
-        await alert.present();
+        header: 'Errore',
+        message: (message),
+        buttons: ['CHIUDI']
+      });
+      await alert.present();
     }
 }

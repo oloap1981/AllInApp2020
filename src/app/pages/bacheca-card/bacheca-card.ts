@@ -6,9 +6,9 @@ import { NavController } from '@ionic/angular';
 
 import { OnInit, Component, Input, NgZone } from '@angular/core';
 import { Module } from '../../models/modules/modules.namespace';
-import { Bacheca } from '../../models/bacheca/bacheca.namespace';
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { Router } from '@angular/router';
+import { BachecaElem } from '../../models/bacheca/bacheca-elem';
 
 
 
@@ -23,8 +23,8 @@ export class BachecaCardPage extends BaseComponent implements OnInit {
   public colonne: number;
   @Input() modules: Module.ModuleElem[];
   public letta: string;
-  public  bachecaFull: Bacheca.BachecaElem[];
-  public  bachecaMin: Bacheca.BachecaElem[] = [];
+  public  bachecaFull: Array<BachecaElem>;
+  public  bachecaMin: Array<BachecaElem> = [];
 
   constructor(
     private navCtrl: NavController,
@@ -49,7 +49,7 @@ export class BachecaCardPage extends BaseComponent implements OnInit {
     }
 
     this.http.getElencoAnnunci('0', '0', 'X').then(
-      (res: Bacheca.BachecaElem[]) => {
+      (res: Array<BachecaElem>) => {
         this.bachecaFull = res;
         if (this.colonne === 1) {
           for (let i = 0 ; i < 4 ; i++) {

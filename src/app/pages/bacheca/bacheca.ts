@@ -1,15 +1,12 @@
-// import { BachecaMieiPage } from './../bacheca-miei/bacheca-miei';
-// import { BachecaPreferitiPage } from './../bacheca-preferiti/bacheca-preferiti';
-// import { BachecaDetailsPage } from './../bacheca-details/bacheca-details';
-// import { BachecaNuovoPage } from './../bacheca-nuovo/bacheca-nuovo';
 import { HttpService } from './../../services/shared/http.service';
 import { OnInit, Component, NgZone } from '@angular/core';
-//  import { HomeElement } from '../../models/home-element/home-element.namespace';
-import { Bacheca } from '../../models/bacheca/bacheca.namespace';
+
 import { Module } from '../../models/modules/modules.namespace';
 import { NavController, AlertController } from '@ionic/angular';
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { Router } from '@angular/router';
+
+import { BachecaElem } from 'src/app/models/bacheca/bacheca-elem';
 
 
 @Component({
@@ -18,8 +15,8 @@ import { Router } from '@angular/router';
 })
 export class BachecaPage extends BaseComponent implements OnInit {
 
-  public bachecaFull: Bacheca.BachecaElem[];
-  public clonedBacheca: Bacheca.BachecaElem[];
+  public bachecaFull: Array<BachecaElem>;
+  public clonedBacheca: Array<BachecaElem>;
   public borderColor = 'border-blue';
   color: string;
   icon: string;
@@ -52,7 +49,7 @@ export class BachecaPage extends BaseComponent implements OnInit {
       }
     );
     this.http.getElencoAnnunci('0', '0', 'X').then(
-      (val1: Bacheca.BachecaElem[]) => {
+      (val1: Array<BachecaElem>) => {
         console.log(val1 );
         this.bachecaFull = val1;
         this.clonedBacheca  = Object.assign([], this.bachecaFull);
@@ -116,7 +113,7 @@ export class BachecaPage extends BaseComponent implements OnInit {
     );
   }
 
-  setDelete(mess: Bacheca.BachecaElem) {
+  setDelete(mess: BachecaElem) {
     // let s = this.store.userData$.subscribe(
     //   (val: Login.Token)=>{
     //     let s1 = this.http.setDeleteMessage(val.token_value, mess.messaggi_key).subscribe(
@@ -143,7 +140,7 @@ export class BachecaPage extends BaseComponent implements OnInit {
     );
   }
 
-  public async deleteConfirm(mess: Bacheca.BachecaElem) {
+  public async deleteConfirm(mess: BachecaElem) {
     const alert = await this.alertCtrl.create({
       header: 'Conferma',
       message: 'eliminare l Annuncio dalla tua bacheca?',
@@ -168,7 +165,7 @@ export class BachecaPage extends BaseComponent implements OnInit {
 
   load() {
     this.http.getElencoAnnunci('0', '0', 'X').then(
-      (val1: Bacheca.BachecaElem[]) => {
+      (val1: Array<BachecaElem>) => {
         console.log(val1 );
         this.bachecaFull = val1;
         this.clonedBacheca  = Object.assign([], this.bachecaFull);

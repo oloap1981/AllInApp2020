@@ -1,21 +1,20 @@
-import { Bacheca} from './../../models/bacheca/bacheca.namespace';
 import { HttpService } from './../../services/shared/http.service';
-// import { HttpClient } from '@angular/common/http';
 import { ContactService } from './../../services/contact/contact.service';
 
 import { StoreService } from './../../services/store/store.service';
-// import { MessaggiDetailsPage } from './../messaggi-details/messaggi-details';
 import { NavController, NavParams } from '@ionic/angular';
 import { OnInit, Component, NgZone } from '@angular/core';
-//  import { Messaggi } from '../../models/messaggi/messaggi.namespace';
 import { Contact } from '../../models/contact/contact.namespace';
 import { Module } from '../../models/modules/modules.namespace';
 import { Login } from '../../models/login/login.namespace';
-// import { SelectSearchableComponent } from 'ionic-select-searchable';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { Router } from '@angular/router';
-
+import { BachecaElem } from 'src/app/models/bacheca/bacheca-elem';
+import { BachecaResult } from 'src/app/models/bacheca/bacheca-result';
+import { BachecaPutElem } from 'src/app/models/bacheca/bacheca-put-elem';
+import { BachecaCategoriaElem } from 'src/app/models/bacheca/bacheca-categoria-elem';
+import { BachecaRichiestaPut } from 'src/app/models/bacheca/bacheca-richiesta-put';
 
 @Component({
   selector: 'bacheca-nuovo',
@@ -31,14 +30,14 @@ export class BachecaNuovoPage extends BaseComponent implements OnInit {
   importo: number;
   email: string;
   telefono: string;
-  categorie: Bacheca.BachecaCategoriaElem[];
-  categoria: Bacheca.BachecaCategoriaElem;
+  categorie: Array<BachecaCategoriaElem>;
+  categoria: BachecaCategoriaElem;
   color: string;
   icon: string;
   immagine: string;
   key: number;
-  annuncio: Bacheca.BachecaRichiestaPut;
-  bachecaElem: Bacheca.BachecaElem;
+  annuncio: BachecaRichiestaPut;
+  bachecaElem: BachecaElem;
 
   constructor(
     public navCtrl: NavController,
@@ -68,15 +67,15 @@ export class BachecaNuovoPage extends BaseComponent implements OnInit {
         console.log(error);
       }
     );
-    this.http.getListaCategorieAnnuncio().then((val: Bacheca.BachecaCategoriaElem[]) => {
+    this.http.getListaCategorieAnnuncio().then((val: Array<BachecaCategoriaElem>) => {
       this.categorie = val;
       },
       (error) => {
         alert("errore recupero della risorsa");
       });
-    this.annuncio = new Bacheca.BachecaRichiestaPut();
-    this.annuncio.annunci = new Bacheca.BachecaPutElem();
-    this.categoria = new Bacheca.BachecaCategoriaElem();
+    this.annuncio = new BachecaRichiestaPut();
+    this.annuncio.annunci = new BachecaPutElem();
+    this.categoria = new BachecaCategoriaElem();
     this.bachecaElem  = this.navParams.get('val');
     if (this.bachecaElem != null && this.bachecaElem !== undefined) {
         console.log(this.annuncio);
@@ -105,7 +104,7 @@ export class BachecaNuovoPage extends BaseComponent implements OnInit {
 
 
 
-  filterPorts(ports: Bacheca.BachecaCategoriaElem[], text: string) {
+  filterPorts(ports: Array<BachecaCategoriaElem>, text: string) {
     return ports.filter(port => {
       return port.tab_categoria_annuncio_desc.toLowerCase().indexOf(text) !== -1;
     });
@@ -156,7 +155,7 @@ export class BachecaNuovoPage extends BaseComponent implements OnInit {
         this.annuncio.annunci.an_immagine = this.immagine;
         this.annuncio.annunci.annuncio_key = this.key;
         console.log(this.annuncio);
-        this.http.putAnnuncio (this.annuncio).then((r: Bacheca.BachecaResult ) => {
+        this.http.putAnnuncio (this.annuncio).then((r: BachecaResult ) => {
           console.log (r);
           if (r.ErrorMessage.msg_code === 0) {
               alert ("Annuncio inserito correttamente");

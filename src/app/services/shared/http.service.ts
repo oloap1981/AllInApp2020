@@ -12,7 +12,14 @@ import { Messaggi } from '../../models/messaggi/messaggi.namespace';
 import { Comunicazione } from '../../models/comunicazione/comunicazione.namespace';
 import { Documentale } from '../../models/documentale/documentale.namespace';
 import { Module } from '../../models/modules/modules.namespace';
-import { Bacheca } from '../../models/bacheca/bacheca.namespace';
+import { BachecaElem } from 'src/app/models/bacheca/bacheca-elem';
+import { BachecaList } from 'src/app/models/bacheca/bacheca-list';
+import { BachecaResult } from 'src/app/models/bacheca/bacheca-result';
+import { BachecaSingleResult } from 'src/app/models/bacheca/bacheca-single-result';
+import { BachecaCategoriaResult } from 'src/app/models/bacheca/bacheca-categoria-result';
+import { BachecaPutElem } from 'src/app/models/bacheca/bacheca-put-elem';
+import { BachecaCategoriaElem } from 'src/app/models/bacheca/bacheca-categoria-elem';
+import { BachecaRichiestaPut } from 'src/app/models/bacheca/bacheca-richiesta-put';
 import { ConstantsService } from './constants.service';
 
 
@@ -20,9 +27,8 @@ import { ConstantsService } from './constants.service';
 @Injectable()
 export class HttpService {
 
-    
-
-    constructor(private http: HttpClient, 
+    constructor(
+        private http: HttpClient,
         private store: StoreService,
         private constants: ConstantsService) {}
 
@@ -548,8 +554,8 @@ export class HttpService {
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/get_elenco_annunci/' + token.token_value + '/' + from + '/' + to + '/' + preferiti;
                     console.log(url);
-                    const s = this.http.get<Bacheca.BachecaList>(url).subscribe(
-                        (r: Bacheca.BachecaList) => {
+                    const s = this.http.get<BachecaList>(url).subscribe(
+                        (r: BachecaList) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r.l_lista_annunci);
                             } else {
@@ -571,8 +577,8 @@ export class HttpService {
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/get_miei_annunci/' + token.token_value + '/' + from + '/' + to ;
                     console.log(url);
-                    const s = this.http.get<Bacheca.BachecaList>(url).subscribe(
-                        (r: Bacheca.BachecaList) => {
+                    const s = this.http.get<BachecaList>(url).subscribe(
+                        (r: BachecaList) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r.l_lista_annunci);
                             } else {
@@ -594,8 +600,8 @@ export class HttpService {
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/get_public_annunci/' + token.token_value + '/' + key ;
                     console.log(url);
-                    const s = this.http.get<Bacheca.BachecaSingleResult>(url).subscribe(
-                        (r: Bacheca.BachecaSingleResult) => {
+                    const s = this.http.get<BachecaSingleResult>(url).subscribe(
+                        (r: BachecaSingleResult) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r.annunci);
                             } else {
@@ -617,8 +623,8 @@ export class HttpService {
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/get_lista_categoria_annuncio/' + token.token_value  ;
                     console.log(url);
-                    const s = this.http.get<Bacheca.BachecaCategoriaResult>(url).subscribe(
-                        (r: Bacheca.BachecaCategoriaResult) => {
+                    const s = this.http.get<BachecaCategoriaResult>(url).subscribe(
+                        (r: BachecaCategoriaResult) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r.l_tab_categorie_annuncio);
                             } else {
@@ -640,8 +646,8 @@ export class HttpService {
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/set_stato_annuncio/' + token.token_value + '/' + key + '/' + stato ;
                     console.log(url);
-                    const s = this.http.get<Bacheca.BachecaResult>(url).subscribe(
-                        (r: Bacheca.BachecaResult) => {
+                    const s = this.http.get<BachecaResult>(url).subscribe(
+                        (r: BachecaResult) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r.result);
                             } else {
@@ -663,8 +669,8 @@ export class HttpService {
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/set_preferred_annuncio/' + token.token_value + '/' + key + '/' + stato;
                     console.log(url);
-                    const s = this.http.get<Bacheca.BachecaResult>(url).subscribe(
-                        (r: Bacheca.BachecaResult) => {
+                    const s = this.http.get<BachecaResult>(url).subscribe(
+                        (r: BachecaResult) => {
                             console.log(r);
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r.result);
@@ -688,8 +694,8 @@ export class HttpService {
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/set_deleted_annuncio/' + token.token_value + '/' + key;
                     console.log(url);
-                    const s = this.http.get<Bacheca.BachecaResult>(url).subscribe(
-                        (r: Bacheca.BachecaResult) => {
+                    const s = this.http.get<BachecaResult>(url).subscribe(
+                        (r: BachecaResult) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r.result);
                             } else {
@@ -705,14 +711,14 @@ export class HttpService {
         });
     }
 
-    public putAnnuncio( mess: Bacheca.BachecaRichiestaPut) {
+    public putAnnuncio( mess: BachecaRichiestaPut) {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/put_annuncio';
                     console.log(url);
-                    const s = this.http.post<Bacheca.BachecaResult>(url, mess).subscribe(
-                        (r: Bacheca.BachecaResult) => {
+                    const s = this.http.post<BachecaResult>(url, mess).subscribe(
+                        (r: BachecaResult) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r);
                             } else {
@@ -728,14 +734,14 @@ export class HttpService {
         });
     }
 
-    public delAnnuncio( mess: Bacheca.BachecaRichiestaPut) {
+    public delAnnuncio( mess: BachecaRichiestaPut) {
         return new Promise((resolve, reject) => {
             this.store.getUserDataPromise().then(
                 (token: Login.Token) => {
                     const url = this.constants.SERVER_ADDRESS + '/services/del_annuncio';
                     console.log(url);
-                    const s = this.http.post<Bacheca.BachecaResult>(url, mess).subscribe(
-                        (r: Bacheca.BachecaResult) => {
+                    const s = this.http.post<BachecaResult>(url, mess).subscribe(
+                        (r: BachecaResult) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r);
                             } else {
@@ -764,8 +770,8 @@ export class HttpService {
                       };
                     const url = this.constants.SERVER_ADDRESS + '/services/img_annuncio';
                     console.log(url);
-                    const s = this.http.post<Bacheca.BachecaResult>(url, o).subscribe(
-                        (r: Bacheca.BachecaResult) => {
+                    const s = this.http.post<BachecaResult>(url, o).subscribe(
+                        (r: BachecaResult) => {
                             if (r.ErrorMessage.msg_code === 0) {
                                 resolve(r);
                             } else {

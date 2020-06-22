@@ -2,7 +2,6 @@
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-import { Bacheca } from './../../models/bacheca/bacheca.namespace';
 import { StoreService } from './../../services/store/store.service';
 import { HttpService } from './../../services/shared/http.service';
 import { NavController, NavParams, AlertController, ActionSheetController } from '@ionic/angular';
@@ -13,6 +12,7 @@ import { Module } from '../../models/modules/modules.namespace';
 import { Login } from '../../models/login/login.namespace';
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { Router } from '@angular/router';
+import { BachecaElem } from 'src/app/models/bacheca/bacheca-elem';
 
 
 @Component({
@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 
 export class BachecaDetailsPage extends BaseComponent implements OnInit {
 
-  public bacheca: Bacheca.BachecaElem;
+  public bacheca: BachecaElem;
   color: string;
   icon: string;
   mio: boolean;
@@ -217,7 +217,7 @@ export class BachecaDetailsPage extends BaseComponent implements OnInit {
 
   public load(key) {
     this.http.getSchedaAnnuncio(key).then(
-      (val: Bacheca.BachecaElem) => {
+      (val: BachecaElem) => {
         this.bacheca = val;
       }
     );

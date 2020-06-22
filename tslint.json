@@ -87,6 +87,7 @@
       "app",
       "page",
       "kebab-case"
-    ]
+    ],
+    "no-namespace": false
   }
 }
