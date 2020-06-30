@@ -19,11 +19,11 @@ export class LoginService {
     }
 
     public login(username: string, password: string): Observable<Login.Token> {
-        const url = this.constants.SERVER_ADDRESS + '/services/token';
+        const url = this.constants.SERVER_ADDRESS + '/services/login';
         const loginRequest = new Login.LoginRequest();
-        loginRequest.user = username;
+        loginRequest.username = username;
         loginRequest.password = password;
-        loginRequest.phoneid = '123456';
+        // loginRequest.phoneid = '123456';
         console.log(url);
         return this.http.post<Login.Token>(url, loginRequest);
     }

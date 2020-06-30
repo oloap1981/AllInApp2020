@@ -3,7 +3,7 @@ export namespace Login {
 
     export class LoginRequest {
         public phoneid: string;
-        public user: string;
+        public username: string;
         public password: string;
     }
 

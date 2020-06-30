@@ -67,7 +67,8 @@ export class LoginPage extends BaseComponent implements OnInit {
         self.userData = r;
         self.store.setUserData(self.userData);
 
-        this.goToPageParams('home', { queryParams: { queryParams: { val: 'pippo' } } });
+        this.goToPage('home');
+        // this.goToPageParams('home', { queryParams: { queryParams: { val: 'pippo' } } });
 
       } else {
         // throw new Error("test Error");
